@@ -2,36 +2,389 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ashish Videography | Jeetpur, Bara</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #fafafa;
+      scroll-behavior: smooth;
+    }
+
+    /* Header */
+    .header {
+      background-color: #222;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      transition: background-color 0.3s ease;
+    }
+
+    .header:hover {
+      background-color: #ff5733;
+      box-shadow: 0 4px 15px rgba(255, 87, 51, 0.7);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.3rem;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .logo svg {
+      height: 35px;
+      width: 35px;
+      filter: brightness(0) invert(1);
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover svg {
+      transform: rotate(10deg) scale(1.1);
+    }
+
+    .nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav a::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #ff5733;
+      transition: width 0.3s ease;
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+    }
+
+    .nav a:hover {
+      color: #ff5733;
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 60vh;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      overflow: hidden;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(34, 34, 34, 0.6);
+      z-index: 1;
+      animation: fadeInOverlay 2s ease forwards;
+    }
+
+    @keyframes fadeInOverlay {
+      from {opacity: 0;}
+      to {opacity: 0.6;}
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 0 20px;
+      animation: slideUp 1s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      text-shadow: 0 0 8px rgba(0,0,0,0.7);
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      text-shadow: 0 0 6px rgba(0,0,0,0.7);
+    }
+
+    /* Button */
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      user-select: none;
+      background: #ff5733;
+      color: white;
+      box-shadow: 0 4px 15px rgba(255, 87, 51, 0.6);
+    }
+
+    .btn:hover {
+      background: #e04e2b;
+      box-shadow: 0 6px 20px rgba(224, 78, 43, 0.8);
+    }
+
+    /* Sections */
+    .section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: auto;
+      text-align: center;
+      animation: fadeInSection 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInSection {
+      to {opacity: 1;}
+      from {opacity: 0;}
+    }
+
+    .section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 25px;
+      color: #222;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 8px;
+      user-select: none;
+    }
+
+    .section h2::after {
+      content: '';
+      width: 60px;
+      height: 3px;
+      background: #ff5733;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      border-radius: 2px;
+    }
+
+    /* Services List */
+    .services-list {
+      list-style-type: none;
+      font-size: 1.15rem;
+      color: #444;
+      max-width: 600px;
+      margin: 0 auto;
+      padding-left: 0;
+    }
+
+    .services-list li {
+      background: white;
+      margin: 10px 0;
+      padding: 18px 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+      user-select: none;
+    }
+
+    .services-list li:hover {
+      transform: translateX(10px);
+      box-shadow: 0 12px 30px rgba(255, 87, 51, 0.3);
+      color: #ff5733;
+    }
+
+    /* Video Portfolio */
+    #portfolio {
+      margin-top: 40px;
+    }
+
+    #portfolio p {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    #portfolio a {
+      color: #ff5733;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    #portfolio a:hover {
+      color: #e04e2b;
+    }
+
+    .video-gallery {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .video-gallery iframe {
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+    }
+
+    .video-gallery iframe:hover {
+      transform: scale(1.05);
+    }
+
+    /* Contact Section */
+    #contact {
+      padding: 40px 20px;
+      background: #fff;
+      max-width: 1100px;
+      margin: 40px auto;
+      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    #contact h2 {
+      color: #222;
+      margin-bottom: 20px;
+    }
+
+    #contact p {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      color: #555;
+    }
+
+    #contact a {
+      color: #ff5733;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    #contact a:hover {
+      color: #e04e2b;
+    }
+
+    /* Footer */
+    .footer {
+      background: #222;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .nav a {
+        margin-left: 15px;
+        font-size: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        height: 45vh;
+      }
+
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .hero p {
+        font-size: 0.9rem;
+      }
+
+      .services-list li {
+        font-size: 1rem;
+        padding: 15px 20px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <header>
+  <header class="header">
     <div class="logo">
-      <img src="logo.png" alt="📷" onerror="this.style.display='none'">
-      <span>📷 Ashish Videography</span>
+      <!-- Camera SVG Icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" aria-hidden="true" >
+        <path d="M12 5c-3.86 0-7 3.14-7 7 0 3.86 3.14 7 7 7 3.86 0 7-3.14 7-7 0-3.86-3.14-7-7-7zm0 12.5c-3.04 0-5.5-2.46-5.5-5.5S8.96 6.5 12 6.5s5.5 2.46 5.5 5.5-2.46 5.5-5.5 5.5zM19 7h-2.586l-1.707-1.707A.996.996 0 0014 5H10a.996.996 0 00-.707.293L7.586 7H5c-1.104 0-2 .896-2 2v7c0 1.104.896 2 2 2h14c1.104 0 2-.896 2-2v-7c0-1.104-.896-2-2-2z"/>
+      </svg>
+      Ashish Videography
     </div>
-    <p>Capturing Moments, Creating Memories – Jeetpur, Bara</p>
-    <nav>
-      <a href="#about">About</a>
+    <nav class="nav">
       <a href="#services">Services</a>
       <a href="#portfolio">Portfolio</a>
-      <a href="#gallery">Gallery</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
-  <section id="about">
-    <h2>About Us</h2>
-    <p>We provide professional wedding photography and videography in Jeetpur, Bara. Our passion is turning your special moments into timeless memories.</p>
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Capture Your Precious Moments</h1>
+      <p>Professional wedding photography and videography services in Jeetpur, Bara.</p>
+      <a href="#contact" class="btn btn-primary">Book Now</a>
+    </div>
   </section>
 
-  <section id="services">
+  <section id="services" class="section">
     <h2>Our Services</h2>
-    <ul>
+    <ul class="services-list">
       <li>Wedding Photography</li>
       <li>Wedding Videography</li>
       <li>Pre-Wedding Shoots</li>
@@ -40,37 +393,27 @@
     </ul>
   </section>
 
-  <section id="portfolio">
+  <section id="portfolio" class="section">
     <h2>Video Portfolio</h2>
-    <p>Watch our work on 
-      <a href="https://www.youtube.com/@aashishvideographyjeetpur6363" target="_blank">YouTube</a> 
-      and follow us on 
-      <a href="https://www.facebook.com/share/14FTggnmbZS/" target="_blank">Facebook</a>.
+    <p>Watch our work on
+      <a href="https://www.youtube.com/@aashishvideographyjeetpur6363" target="_blank" rel="noopener noreferrer">YouTube</a>
+      and follow us on
+      <a href="https://www.facebook.com/share/14FTggnmbZS/" target="_blank" rel="noopener noreferrer">Facebook</a>.
     </p>
     <div class="video-gallery">
       <iframe width="350" height="200" src="https://www.youtube.com/embed/IRdD6ov7rpM" frameborder="0" allowfullscreen></iframe>
     </div>
   </section>
 
-  <section id="gallery">
-    <h2>Photo Gallery</h2>
-    <div class="photo-gallery">
-      <img src="c:\Users\DELL\Downloads\WhatsApp Image 2025-07-17 at 16.14.22_0c9cfd7a.jpg" alt="Work 1">
-      <img src="c:\Users\DELL\Downloads\WhatsApp Image 2025-07-17 at 16.14.23_28cfee48.jpg" alt="Work 2">
-       <img src="c:\Users\DELL\Downloads\WhatsApp Image 2025-07-17 at 16.14.23_683c692a.jpg" alt="Work 3">
-        <img src="c:\Users\DELL\Downloads\WhatsApp Image 2025-07-17 at 16.14.24_b3f5baa8.jpg" alt="Work 4">
-         <img src="c:\Users\DELL\Downloads\WhatsApp Image 2025-07-17 at 16.14.24_55dcbb3e.jpg" alt="Work 5">
-    </div>
-  </section>
-
-  <section id="contact">
+  <section id="contact" class="section">
     <h2>Contact Us</h2>
-    <p>📞 Phone: <a href="tel:+9779855038573">+977 985-5038573</a></p>
-    <p>📧 Email: <a href="mailto:guptaaashish960@gmail.com">guptaaashish960@gmail.com</a></p>
+    <p>Phone: <a href="tel:+9779855038573">+977 985-5038573</a></p>
+    <p>Email: <a href="mailto:guptaaashish960@gmail.com">guptaaashish960@gmail.com</a></p>
+    <p>Location: Jeetpur, Bara, Nepal</p>
   </section>
 
-  <footer>
-    <p>&copy; 2025 Ashish Videography | Jeetpur, Bara</p>
+  <footer class="footer">
+    &copy; 2025 Ashish Videography. All rights reserved.
   </footer>
 
 </body>
